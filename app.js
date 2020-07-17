@@ -1,19 +1,8 @@
 
-const inquirer = require('inquirer');
 const fs = require('fs');
+const inquirer = require('inquirer');
 const generatePage = require('./src/page-template.js');
 
-//we don't need these 2 anymore. Saving Just incase
-// const profileDataArgs = process.argv.slice(2);
-// const [name, github] = profileDataArgs;
-
-// const pageHTML = generatePage(portfolioData);
-
-// fs.writeFile('./index.html', generatePage(name, github), err => {
-//     if (err) throw new Error(err);
-
-//     console.log('Portfolio complete! Check out index.html to see the output!');
-// });
 
 const promptUser = () => {
     return inquirer.prompt([
@@ -55,11 +44,9 @@ const promptUser = () => {
             message: 'Provide some information about yourself:',
             when: ({ confirmAbout }) => confirmAbout
         }
-
     ]);
-};
 
-// promptUser().then(answers => console.log(answers));
+};
 
 
 const promptProject = portfolioData => {
@@ -133,12 +120,11 @@ const promptProject = portfolioData => {
         });
 };
 
+
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
         const pageHTML = generatePage(portfolioData);
-        //temporary call for testing. !switch later
-        // const pageHTML = generatePage(mockData);
 
         fs.writeFile('./dist/index.html', pageHTML, err => {
             if (err) {
